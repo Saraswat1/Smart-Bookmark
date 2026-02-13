@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🔖Smart Bookmark App
+A real-time, secure bookmark manager built with Next.js and Supabase. This application allows users to authenticate via Google and manage their personal links with instant UI updates across all devices.
 
-## Getting Started
+🚀 Live Demo
+Link: [Insert Your Vercel URL Here]
 
-First, run the development server:
+GitHub: [Insert Your Repo Link Here]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🛠 Tech Stack
+Frontend: Next.js (App Router)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Database: Supabase (PostgreSQL)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Auth: Google OAuth via Supabase Auth
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Real-time: Supabase Postgres Changes Listener
 
-## Learn More
+Styling: Tailwind CSS
 
-To learn more about Next.js, take a look at the following resources:
+✨ Key Features
+One-Tap Login: Integrated Google OAuth for a frictionless onboarding experience.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Real-time Sync: Uses Supabase Channels to listen for database changes (INSERT, DELETE) and update the UI without a page refresh.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Secure Access: Client-side route protection using getUser() and router.push() to ensure only logged-in users see their dashboard.
 
-## Deploy on Vercel
+Responsive UI: A clean, mobile-first design using Tailwind CSS gradients and transitions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🧠 Challenges & Solutions
+1. Handling Real-time Data Sync
+Problem: I wanted the bookmark list to update immediately if a user added a link from a different tab or device, but calling fetchBookmarks manually every time was inefficient.
+Solution: I implemented a Supabase Realtime Channel. By subscribing to postgres_changes on the bookmarks table, the app listens for any event (*) and triggers a fresh fetch only when the database actually changes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Protecting the Dashboard Route
+Problem: Unauthorized users could potentially see the dashboard layout before being redirected to login.
+Solution: In my Dashboard component, I used a loading state paired with an init() function. The app checks for a valid session using supabase.auth.getUser() immediately on mount. If no user is found, they are redirected before the loading state is set to false.
+
+3. Database Privacy (RLS)
+Problem: Ensuring that one user cannot see another user's bookmarks.
+Solution: I enabled Row Level Security (RLS) in Supabase. I configured a policy that only allows users to SELECT and DELETE rows where the user_id matches auth.uid(). This moves security from the frontend to the database level.
+
+⚙️ Local Setup
+Clone the Repository: git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+Install Dependencies: npm install
+
+Environment Variables: Create a .env.local and add your keys:
+Code snippet
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+
+Run the App: npm run dev
