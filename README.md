@@ -4,7 +4,7 @@ A real-time, secure bookmark manager built with Next.js and Supabase. This appli
 🚀 Live Demo
 Link: [Insert Your Vercel URL Here]
 
-GitHub: [Insert Your Repo Link Here]
+GitHub: https://github.com/Saraswat1/Smart-Bookmark
 
 🛠 Tech Stack
 Frontend: Next.js (App Router)
