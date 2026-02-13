@@ -2,7 +2,7 @@
 A real-time, secure bookmark manager built with Next.js and Supabase. This application allows users to authenticate via Google and manage their personal links with instant UI updates across all devices.
 
 🚀 Live Demo
-Link: [Insert Your Vercel URL Here]
+Link: https://smart-bookmark-zeta.vercel.app/login
 
 GitHub: https://github.com/Saraswat1/Smart-Bookmark
 
